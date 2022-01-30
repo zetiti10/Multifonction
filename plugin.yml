@@ -1,0 +1,22 @@
+main: fr.simple.multifonction.Multifonction
+name: Multifonction
+version: 1.0
+description: Simple, le plugin multifonction est un plugin qui ajoute diverses commande utiles au serveur.
+api-version: 1.17
+authors: [zetiti10, xzo41]
+website: https://simple.zapto.org/
+prefix: Multifonction
+depend: [Vault]
+load: POSTWORLD
+
+commands:
+  freeze:
+    description: Empêche un joueur de bouger.
+    aliases: gel
+    permission: multifonction.moderateur
+    usage: '§cUtilisation : /freeze <joueur>'
+     
+permissions:
+  multifonction.moderateur:
+    description: Permission pour effectuer des commandes de modération
+    default: op
