@@ -10,7 +10,7 @@ import net.milkbowl.vault.economy.Economy;
 public class Multifonction extends JavaPlugin {
 	
 	public Economy eco;
-	public String prefix = "§eSimplebot §8» ";
+	public String prefix = "§eSimplebot §8» ";//
 	public Multifonction multifonction = this;
 	
 	@Override
