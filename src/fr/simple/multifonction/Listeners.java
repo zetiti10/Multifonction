@@ -52,7 +52,7 @@ public class Listeners implements Listener {
 				Bukkit.getScheduler().runTaskTimer(multifonction, new Runnable() {
 					int i = 1;
 					@Override
-					public void run() {
+					public void run() {//
 						switch (i) {
 						case 1:
 							ruban_rouge1.getBlock().setType(Material.AIR);
