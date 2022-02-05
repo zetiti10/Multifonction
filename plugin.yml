@@ -15,8 +15,15 @@ commands:
     aliases: gel
     permission: multifonction.moderateur
     usage: '§cUtilisation : /freeze <joueur>'
+  cc:
+    description: Scènes de l'ouverture.
+    permission: multifonction.ouverture
+    usage: '§cUtilisation : /va'
      
 permissions:
   multifonction.moderateur:
-    description: Permission pour effectuer des commandes de modération
+    description: Permission pour effectuer des commandes de modération.
+    default: op
+  multifonction.ouverture:
+    description: Permission pour exécuter les commandes de l'ouverture.
     default: op

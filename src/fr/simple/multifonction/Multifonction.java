@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import fr.simple.multifonction.basicCommands.Cc;
 import fr.simple.multifonction.basicCommands.Freeze;
 import net.milkbowl.vault.economy.Economy;
 
@@ -24,8 +25,9 @@ public class Multifonction extends JavaPlugin {
 		}
 		
 		getCommand("freeze").setExecutor(new Freeze(this));
+		getCommand("freeze").setExecutor(new Cc(this));
 		
-		getServer().getPluginManager().registerEvents(new Listeners(), this);
+		getServer().getPluginManager().registerEvents(new Listeners(this), this);
 		
 		Bukkit.getConsoleSender().sendMessage("========================================================");
 		Bukkit.getConsoleSender().sendMessage("===== Simple, le plugin multifonction est allumé ! =====");
