@@ -14,12 +14,21 @@ commands:
     description: Empêche un joueur de bouger.
     aliases: gel
     permission: multifonction.moderateur
-    usage: '§cUtilisation : /freeze <joueur>'
+    usage: "Utilisation : /freeze <joueur>."
   cc:
     description: Scènes de l'ouverture.
     permission: multifonction.ouverture
-    usage: '§cUtilisation : /va'
-     
+    usage: "Utilisation : /cc."
+  mychunk:
+    description: Obtenir les deux coins du chunk dans lequel on est.
+    permission: multifonction.player
+    usage: "Utilisation : /mychunk."
+  myloc:
+    description: Obtenir sa position actuelle.
+    permission: multifonction.player
+    usage: "Utilisation : /myloc."
+    aliases: mypos
+    
 permissions:
   multifonction.moderateur:
     description: Permission pour effectuer des commandes de modération.
@@ -27,3 +36,6 @@ permissions:
   multifonction.ouverture:
     description: Permission pour exécuter les commandes de l'ouverture.
     default: op
+  multifonction.player:
+    description: Permissions des joueurs.
+    default: true

@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
@@ -43,14 +44,17 @@ public class Listeners implements Listener {
 	Location void7 = new Location(Bukkit.getWorld("world"), -176, 77, -1151);
 	Location void8 = new Location(Bukkit.getWorld("world"), -176, 77, -1159);
 	
-	Location artifices = new Location(Bukkit.getWorld("world"), -170, 72, -1132);
+	Location artifices = new Location(Bukkit.getWorld("world"), -170, 71, -1132);
 	
+	@EventHandler
 	public void onBreak(BlockBreakEvent event) {
 		if(event.getBlock().getLocation().getX() == ruban_rouge0.getX() && event.getBlock().getLocation().getY() == ruban_rouge0.getY() && event.getBlock().getLocation().getZ() == ruban_rouge0.getZ()) {
 			if(event.getPlayer() == Bukkit.getPlayer("zetiti10")) {
 				void0.getBlock().setType(Material.AIR);
 				Bukkit.getScheduler().runTaskTimer(multifonction, new Runnable() {
 					int i = 1;
+					@SuppressWarnings("unchecked")
+					List<Player> players = (List<Player>) Bukkit.getOnlinePlayers();
 					@Override
 					public void run() {
 						switch (i) {
@@ -86,9 +90,6 @@ public class Listeners implements Listener {
 							break;
 						case 6:
 							Bukkit.broadcastMessage("§bSimple est ouvert ! §9Après plus d'un an de développement, le serveur est enfin ouvert. Vous pouvez commencer dès maintenant votre survie !");
-							
-							@SuppressWarnings("unchecked")
-							List<Player> players = (List<Player>) Bukkit.getOnlinePlayers();
 							for(int i = 0; i < players.size(); i ++) {
 								players.get(i).playSound(players.get(i).getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1, 1);
 								players.get(i).sendTitle("§bSimple est ... ouvert !", "§9Vous pouvez commencer votre aventure dès maintenant !", 20, 20 * 5, 20);
@@ -99,6 +100,9 @@ public class Listeners implements Listener {
 							break;
 						}
 						i ++;
+						for(int i = 0; i < players.size(); i ++) {
+							players.get(i).playSound(players.get(i).getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+						}
 					}
 				}, 20 * 1L, 15L);
 				
@@ -107,13 +111,14 @@ public class Listeners implements Listener {
 					@Override
 					public void run() {
 						Bukkit.getWorld("world").setTime(i);
-						i = i + 1000L;
+						i = i + 50L;
 						if(i == 20000L) {
 							Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+							Bukkit.getWorld("world").setGameRule(GameRule.DO_WEATHER_CYCLE, true);
 							Bukkit.getScheduler().cancelTasks(multifonction);
 						}
 					}
-				}, 20 * 1L, 5L);
+				}, 1L, 1L);
 				
 				/*Bukkit.getScheduler().runTaskLater(multifonction, new Runnable() {
 					@Override

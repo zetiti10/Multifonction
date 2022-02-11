@@ -6,6 +6,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.simple.multifonction.basicCommands.Cc;
 import fr.simple.multifonction.basicCommands.Freeze;
+import fr.simple.multifonction.basicCommands.MyChunk;
+import fr.simple.multifonction.basicCommands.MyPos;
 import net.milkbowl.vault.economy.Economy;
 
 public class Multifonction extends JavaPlugin {
@@ -25,7 +27,9 @@ public class Multifonction extends JavaPlugin {
 		}
 		
 		getCommand("freeze").setExecutor(new Freeze(this));
-		getCommand("freeze").setExecutor(new Cc(this));
+		getCommand("cc").setExecutor(new Cc(this));
+		getCommand("mychunk").setExecutor(new MyChunk(this));
+		getCommand("myloc").setExecutor(new MyPos(this));
 		
 		getServer().getPluginManager().registerEvents(new Listeners(this), this);
 		
