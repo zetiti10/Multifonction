@@ -28,6 +28,15 @@ commands:
     permission: multifonction.player
     usage: "Utilisation : /myloc."
     aliases: mypos
+  liens:
+    description: Permet de voir tous les liens de Simple.
+    permission: multifonction.player
+    usage: "Utilisation : /liens"
+    aliases: lien
+  saferestart:
+    description: Redémarrage en douceur du serveur.
+    permission: multifonction.moderateur
+    usage: "Utilisation : /saferestart"
     
 permissions:
   multifonction.moderateur:

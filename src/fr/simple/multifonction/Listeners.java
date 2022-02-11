@@ -12,6 +12,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class Listeners implements Listener {
 	
@@ -129,6 +131,39 @@ public class Listeners implements Listener {
 				
 			} else {
 				event.setCancelled(true);
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onPlace(BlockPlaceEvent event) {
+		if(event.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasLore()) {
+			List<String> list = event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getLore();
+			for(int i = 0; i < list.size(); i ++) {
+				if(list.get(i).endsWith("Simple, la monaie")) {
+					event.setCancelled(true);
+					break;
+				}
+			}
+		}
+	}
+	
+	public void onChat(AsyncPlayerChatEvent event) {
+		if(event.getMessage().matches("(.*)@(.*)")) {
+			String player = "null";
+			for(int i = 0; i < event.getMessage().length(); i ++) {
+				if(event.getMessage().charAt(i) == '@') {
+					i = i++;
+					player = String.valueOf(event.getMessage().charAt(i));
+					for(int j = i; j < 256; j ++) {
+						if(event.getMessage().charAt(j) == ' ') {
+							
+							break;
+						} else {
+							player = player.concat(String.valueOf(event.getMessage().charAt(j)));
+						}
+					}
+				}
 			}
 		}
 	}
