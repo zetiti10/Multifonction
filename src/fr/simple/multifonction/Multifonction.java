@@ -28,14 +28,17 @@ public class Multifonction extends JavaPlugin {
 			return;
 		}
 		
-		getCommand("freeze").setExecutor(new Freeze(this));
+		getCommand("afreeze").setExecutor(new Freeze(this));
 		getCommand("cc").setExecutor(new Cc(this));
 		getCommand("mychunk").setExecutor(new MyChunk(this));
 		getCommand("myloc").setExecutor(new MyPos(this));
 		getCommand("liens").setExecutor(new Liens());
 		getCommand("saferestart").setExecutor(new SafeRestart(this));
+		getCommand("pvp").setExecutor(new Pvp(this));
 		
 		getServer().getPluginManager().registerEvents(new Listeners(this), this);
+		
+		Bukkit.getScheduler().runTaskTimer(this, new PvpManager(), 20, 20);
 		
 		Bukkit.getConsoleSender().sendMessage("========================================================");
 		Bukkit.getConsoleSender().sendMessage("===== Simple, le plugin multifonction est allumé ! =====");

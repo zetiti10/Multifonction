@@ -10,11 +10,15 @@ depend: [Vault]
 load: POSTWORLD
 
 commands:
-  freeze:
+  afreeze:
     description: Empêche un joueur de bouger.
     aliases: gel
     permission: multifonction.moderateur
     usage: "Utilisation : /freeze <joueur>."
+  pvp:
+    description: Active / desactive le PVP.
+    permission: multifonction.player
+    usage: "Utilisation : /pvp."
   cc:
     description: Scènes de l'ouverture.
     permission: multifonction.ouverture

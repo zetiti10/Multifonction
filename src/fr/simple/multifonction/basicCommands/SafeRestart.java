@@ -28,7 +28,7 @@ public class SafeRestart implements CommandExecutor {
 			Bukkit.getScheduler().runTaskLater(multifonction, new Runnable() {
 				@Override
 				public void run() {
-					PotionEffect potion = new PotionEffect(PotionEffectType.BLINDNESS, 100, 1);
+					PotionEffect potion = new PotionEffect(PotionEffectType.BLINDNESS, 220, 1);
 					Bukkit.broadcastMessage(multifonction.prefix + "§c§lRedémarrage du serveur.");
 					for(int i = 0; i < onlines.size(); i ++) {
 						onlines.get(i).addPotionEffect(potion);
@@ -44,7 +44,7 @@ public class SafeRestart implements CommandExecutor {
 					}
 					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stop");
 				}
-			}, 70 * 20L);
+			}, 70L * 20L);
 			
 		} else {
 			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stop");

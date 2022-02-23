@@ -1,6 +1,5 @@
 package fr.simple.multifonction.basicCommands;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -9,6 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import fr.simple.multifonction.DataManager;
 import fr.simple.multifonction.Multifonction;
 
 public class Freeze implements CommandExecutor {
@@ -19,12 +19,12 @@ public class Freeze implements CommandExecutor {
 		this.multifonction = multifonction;
 	}
 
-	List<Player> freezed = new ArrayList<Player>();
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		try {
+			List<Player> freezed = DataManager.freezed;
 			Player target = Bukkit.getPlayer(args[0]);
+			
 			for (int i = 0; i < freezed.size(); i++) {
 				if (freezed.get(i).getName().equals(target.getName())) {
 					sender.sendMessage(multifonction.prefix + "§b" + target.getName() + " §9n'est plus immobilisé.");
