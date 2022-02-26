@@ -10,6 +10,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -193,93 +194,24 @@ public class Listeners implements Listener {
 			return;
 		}
 	}
-	
+
 	@EventHandler
 	public void onDisconnect(PlayerQuitEvent event) {
 		if (!DataManager.InPVPPlayers.isEmpty()) {
 			for (int i = 0; i < DataManager.InPVPPlayers.size(); i++) {
 				if (DataManager.InPVPPlayers.get(i) == event.getPlayer()) {
-					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "discord broadcast #「💭」discutions **ALERTE** " + event.getPlayer().getName() + " s'est déconnecté alors qu'il était en PVP.");
+					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "discord broadcast #「💭」discutions **ALERTE** "
+							+ event.getPlayer().getName() + " s'est déconnecté alors qu'il était en PVP.");
 				}
 			}
 			return;
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPVP(EntityDamageByEntityEvent event) {
-		if (event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
-			String playerTeam = TeamData.getPlayerTeam(event.getEntity().getUniqueId());
-			if (!playerTeam.equals("null")) {
-				List<String> teamsInFight = Assaut.teamsInFight2;
-				for (int i = 0; i < teamsInFight.size(); i++) {
-					String current = teamsInFight.get(i);
-					String[] words = current.split("\\s+");
-					String attaquants = words[1];
-					String défenceurs = words[2];
-					if (playerTeam.equals(attaquants) || playerTeam.equals(défenceurs)) {
-						String damagerTeam = TeamData.getPlayerTeam(event.getDamager().getUniqueId());
-						if (!damagerTeam.equals("null")) {
-							for (int j = 0; j < teamsInFight.size(); j++) {
-								String current1 = teamsInFight.get(j);
-								String[] words1 = current1.split("\\s+");
-								String attaquants1 = words1[1];
-								String défenceurs1 = words1[2];
-								if (playerTeam.equals(attaquants1) || playerTeam.equals(défenceurs1)) {
-									return;
-								}
-							}
-						}
-					}
-					event.setCancelled(true);
-					event.getDamager().sendMessage(multifonction.prefix + "§cCe joueur est en assaut.");
-				}
-			}
-
-			String damagerTeam = TeamData.getPlayerTeam(event.getDamager().getUniqueId());
-			if (!damagerTeam.equals("null")) {
-				List<String> teamsInFight = Assaut.teamsInFight2;
-				for (int j = 0; j < teamsInFight.size(); j++) {
-					String current1 = teamsInFight.get(j);
-					String[] words1 = current1.split("\\s+");
-					String attaquants1 = words1[1];
-					String défenceurs1 = words1[2];
-					if (playerTeam.equals(attaquants1) || playerTeam.equals(défenceurs1)) {
-						event.getDamager()
-								.sendMessage(multifonction.prefix + "§cCe joueur n'est pas dans la team adverse.");
-					}
-				}
-			}
-
-			if (!FileManager.isPVPEnabled((Player) event.getDamager())) {
-				event.getDamager().sendMessage(multifonction.prefix + "§cVous n'avez pas le PVP d'activé.");
-				event.setCancelled(true);
-				return;
-			}
-			if (!FileManager.isPVPEnabled((Player) event.getEntity())) {
-				event.getDamager().sendMessage(multifonction.prefix + "§cCe joueur n'a pas le PVP d'activé.");
-				event.setCancelled(true);
-				return;
-			}
-			if (!DataManager.InPVPPlayers.isEmpty()) {
-				for (int i = 0; i < DataManager.InPVPPlayers.size(); i++) {
-					if (DataManager.InPVPPlayers.get(i) == event.getDamager()) {
-						DataManager.InPVPPlayersTime.set(i, 30);
-					}
-					if (DataManager.InPVPPlayers.get(i) == event.getEntity()) {
-						DataManager.InPVPPlayersTime.set(i, 30);
-					}
-				}
-				return;
-			}
-			DataManager.InPVPPlayers.add((Player) event.getEntity());
-			DataManager.InPVPPlayersTime.add(30);
-			DataManager.InPVPPlayers.add((Player) event.getDamager());
-			DataManager.InPVPPlayersTime.add(30);
-		} else if (event.getEntity() instanceof Player && event.getCause() == DamageCause.PROJECTILE) {
-			Projectile proj = (Projectile) event.getDamager();
-			if (proj.getShooter() instanceof Player) {
-				Player damager = (Player) proj.getShooter();
+		if (!event.isCancelled()) {
+			if (event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
 				String playerTeam = TeamData.getPlayerTeam(event.getEntity().getUniqueId());
 				if (!playerTeam.equals("null")) {
 					List<String> teamsInFight = Assaut.teamsInFight2;
@@ -289,8 +221,7 @@ public class Listeners implements Listener {
 						String attaquants = words[1];
 						String défenceurs = words[2];
 						if (playerTeam.equals(attaquants) || playerTeam.equals(défenceurs)) {
-							///////////////////////////////////////////////////////////////////
-							String damagerTeam = TeamData.getPlayerTeam(damager.getUniqueId());
+							String damagerTeam = TeamData.getPlayerTeam(event.getDamager().getUniqueId());
 							if (!damagerTeam.equals("null")) {
 								for (int j = 0; j < teamsInFight.size(); j++) {
 									String current1 = teamsInFight.get(j);
@@ -304,11 +235,11 @@ public class Listeners implements Listener {
 							}
 						}
 						event.setCancelled(true);
-						damager.sendMessage(multifonction.prefix + "§cCe joueur est en assaut.");
+						event.getDamager().sendMessage(multifonction.prefix + "§cCe joueur est en assaut.");
 					}
 				}
 
-				String damagerTeam = TeamData.getPlayerTeam(damager.getUniqueId());
+				String damagerTeam = TeamData.getPlayerTeam(event.getDamager().getUniqueId());
 				if (!damagerTeam.equals("null")) {
 					List<String> teamsInFight = Assaut.teamsInFight2;
 					for (int j = 0; j < teamsInFight.size(); j++) {
@@ -317,36 +248,110 @@ public class Listeners implements Listener {
 						String attaquants1 = words1[1];
 						String défenceurs1 = words1[2];
 						if (playerTeam.equals(attaquants1) || playerTeam.equals(défenceurs1)) {
-							damager.sendMessage(multifonction.prefix + "§cCe joueur n'est pas dans la team adverse.");
+							event.getDamager()
+									.sendMessage(multifonction.prefix + "§cCe joueur n'est pas dans la team adverse.");
 						}
 					}
 				}
 
-				if (!FileManager.isPVPEnabled((Player) damager)) {
-					damager.sendMessage(multifonction.prefix + "§cVous n'avez pas le PVP d'activé.");
+				if (!FileManager.isPVPEnabled((Player) event.getDamager())) {
+					event.getDamager().sendMessage(multifonction.prefix + "§cVous n'avez pas le PVP d'activé.");
 					event.setCancelled(true);
 					return;
 				}
 				if (!FileManager.isPVPEnabled((Player) event.getEntity())) {
-					damager.sendMessage(multifonction.prefix + "§cCe joueur n'a pas le PVP d'activé.");
+					event.getDamager().sendMessage(multifonction.prefix + "§cCe joueur n'a pas le PVP d'activé.");
 					event.setCancelled(true);
 					return;
 				}
 				if (!DataManager.InPVPPlayers.isEmpty()) {
 					for (int i = 0; i < DataManager.InPVPPlayers.size(); i++) {
-						if (DataManager.InPVPPlayers.get(i) == damager) {
+						if (DataManager.InPVPPlayers.get(i) == event.getDamager()) {
 							DataManager.InPVPPlayersTime.set(i, 30);
 						}
-						if (DataManager.InPVPPlayers.get(i) == damager) {
+						if (DataManager.InPVPPlayers.get(i) == event.getEntity()) {
 							DataManager.InPVPPlayersTime.set(i, 30);
 						}
 					}
 					return;
 				}
-				DataManager.InPVPPlayers.add((Player) damager);
+				DataManager.InPVPPlayers.add((Player) event.getEntity());
 				DataManager.InPVPPlayersTime.add(30);
-				DataManager.InPVPPlayers.add((Player) damager);
+				DataManager.InPVPPlayers.add((Player) event.getDamager());
 				DataManager.InPVPPlayersTime.add(30);
+			} else if (event.getEntity() instanceof Player && event.getCause() == DamageCause.PROJECTILE) {
+				Projectile proj = (Projectile) event.getDamager();
+				if (proj.getShooter() instanceof Player) {
+					Player damager = (Player) proj.getShooter();
+					String playerTeam = TeamData.getPlayerTeam(event.getEntity().getUniqueId());
+					if (!playerTeam.equals("null")) {
+						List<String> teamsInFight = Assaut.teamsInFight2;
+						for (int i = 0; i < teamsInFight.size(); i++) {
+							String current = teamsInFight.get(i);
+							String[] words = current.split("\\s+");
+							String attaquants = words[1];
+							String défenceurs = words[2];
+							if (playerTeam.equals(attaquants) || playerTeam.equals(défenceurs)) {
+								///////////////////////////////////////////////////////////////////
+								String damagerTeam = TeamData.getPlayerTeam(damager.getUniqueId());
+								if (!damagerTeam.equals("null")) {
+									for (int j = 0; j < teamsInFight.size(); j++) {
+										String current1 = teamsInFight.get(j);
+										String[] words1 = current1.split("\\s+");
+										String attaquants1 = words1[1];
+										String défenceurs1 = words1[2];
+										if (playerTeam.equals(attaquants1) || playerTeam.equals(défenceurs1)) {
+											return;
+										}
+									}
+								}
+							}
+							event.setCancelled(true);
+							damager.sendMessage(multifonction.prefix + "§cCe joueur est en assaut.");
+						}
+					}
+
+					String damagerTeam = TeamData.getPlayerTeam(damager.getUniqueId());
+					if (!damagerTeam.equals("null")) {
+						List<String> teamsInFight = Assaut.teamsInFight2;
+						for (int j = 0; j < teamsInFight.size(); j++) {
+							String current1 = teamsInFight.get(j);
+							String[] words1 = current1.split("\\s+");
+							String attaquants1 = words1[1];
+							String défenceurs1 = words1[2];
+							if (playerTeam.equals(attaquants1) || playerTeam.equals(défenceurs1)) {
+								damager.sendMessage(
+										multifonction.prefix + "§cCe joueur n'est pas dans la team adverse.");
+							}
+						}
+					}
+
+					if (!FileManager.isPVPEnabled((Player) damager)) {
+						damager.sendMessage(multifonction.prefix + "§cVous n'avez pas le PVP d'activé.");
+						event.setCancelled(true);
+						return;
+					}
+					if (!FileManager.isPVPEnabled((Player) event.getEntity())) {
+						damager.sendMessage(multifonction.prefix + "§cCe joueur n'a pas le PVP d'activé.");
+						event.setCancelled(true);
+						return;
+					}
+					if (!DataManager.InPVPPlayers.isEmpty()) {
+						for (int i = 0; i < DataManager.InPVPPlayers.size(); i++) {
+							if (DataManager.InPVPPlayers.get(i) == damager) {
+								DataManager.InPVPPlayersTime.set(i, 30);
+							}
+							if (DataManager.InPVPPlayers.get(i) == damager) {
+								DataManager.InPVPPlayersTime.set(i, 30);
+							}
+						}
+						return;
+					}
+					DataManager.InPVPPlayers.add((Player) damager);
+					DataManager.InPVPPlayersTime.add(30);
+					DataManager.InPVPPlayers.add((Player) damager);
+					DataManager.InPVPPlayersTime.add(30);
+				}
 			}
 		}
 	}

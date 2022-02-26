@@ -41,6 +41,18 @@ commands:
     description: Redémarrage en douceur du serveur.
     permission: multifonction.moderateur
     usage: "Utilisation : /saferestart"
+  help:
+    description: Page d'aide.
+    permission: multifonction.player
+    usage: "Utilisation : /help"
+  helpop:
+    description: Demande de l'aide au staff.
+    permission: multifonction.player
+    usage: "Utilisation : /helpop"
+  top:
+    description: Se téléporter au bloc le plus haut.
+    permission: multifonction.moderateur
+    usage: "Utilisation : /top"
     
 permissions:
   multifonction.moderateur:

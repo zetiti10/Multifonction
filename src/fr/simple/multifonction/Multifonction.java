@@ -35,6 +35,9 @@ public class Multifonction extends JavaPlugin {
 		getCommand("liens").setExecutor(new Liens());
 		getCommand("saferestart").setExecutor(new SafeRestart(this));
 		getCommand("pvp").setExecutor(new Pvp(this));
+		getCommand("help").setExecutor(new Help(this));
+		getCommand("helpop").setExecutor(new HelpOp(this));
+		getCommand("top").setExecutor(new Top(this));
 		
 		getServer().getPluginManager().registerEvents(new Listeners(this), this);
 		
