@@ -1,4 +1,4 @@
-package fr.simple.multifonction;
+package fr.simple.multifonction.basicCommands;
 
 import java.util.List;
 
@@ -8,6 +8,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import fr.simple.multifonction.Multifonction;
 
 public class HelpOp implements CommandExecutor {
 

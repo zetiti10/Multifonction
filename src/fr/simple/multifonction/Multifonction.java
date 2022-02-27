@@ -6,10 +6,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.simple.multifonction.basicCommands.Cc;
 import fr.simple.multifonction.basicCommands.Freeze;
+import fr.simple.multifonction.basicCommands.Help;
+import fr.simple.multifonction.basicCommands.HelpOp;
 import fr.simple.multifonction.basicCommands.Liens;
 import fr.simple.multifonction.basicCommands.MyChunk;
 import fr.simple.multifonction.basicCommands.MyPos;
+import fr.simple.multifonction.basicCommands.Pvp;
 import fr.simple.multifonction.basicCommands.SafeRestart;
+import fr.simple.multifonction.basicCommands.Top;
 import net.milkbowl.vault.economy.Economy;
 
 public class Multifonction extends JavaPlugin {

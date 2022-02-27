@@ -25,7 +25,7 @@ public class SafeRestart implements CommandExecutor {
 			@SuppressWarnings("unchecked")
 			List<Player> onlines = (List<Player>) Bukkit.getOnlinePlayers();
 			Bukkit.broadcastMessage(multifonction.prefix + "§c§lLe serveur va redémarrer dans 1 minute.");
-			Bukkit.getScheduler().runTaskLater(multifonction, new Runnable() {
+			Bukkit.getScheduler().runTaskLater(Bukkit.getPluginManager().getPlugin("Multifonction"), new Runnable() {
 				@Override
 				public void run() {
 					PotionEffect potion = new PotionEffect(PotionEffectType.BLINDNESS, 220, 1);
@@ -36,7 +36,7 @@ public class SafeRestart implements CommandExecutor {
 					}
 				}
 			}, 60 * 20L);
-			Bukkit.getScheduler().runTaskLater(multifonction, new Runnable() {
+			Bukkit.getScheduler().runTaskLater(Bukkit.getPluginManager().getPlugin("Multifonction"), new Runnable() {
 				@Override
 				public void run() {
 					for(int i = 0; i < onlines.size(); i ++) {

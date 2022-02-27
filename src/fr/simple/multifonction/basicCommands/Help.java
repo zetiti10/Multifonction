@@ -1,10 +1,12 @@
-package fr.simple.multifonction;
+package fr.simple.multifonction.basicCommands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import fr.simple.multifonction.Multifonction;
 
 public class Help implements CommandExecutor {
 

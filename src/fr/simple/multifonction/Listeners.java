@@ -18,6 +18,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -419,4 +420,21 @@ public class Listeners implements Listener {
 			}
 		}
 	}
+
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onPreprocess(PlayerCommandPreprocessEvent event) {
+		String command = event.getMessage();
+		if(command.startsWith("/minecraft:kill")) {
+			if(command.charAt(16) == '@' && (command.charAt(17) == 'e' || command.charAt(17) == 'a')) {
+				event.setCancelled(true);
+				event.getPlayer().sendMessage(multifonction.prefix + "§cCETTE COMMANDE EST BLOQUEE !");
+			}
+		} else if(command.startsWith("/kill")) {
+			if(command.charAt(6) == '@' && (command.charAt(7) == 'e' || command.charAt(7) == 'a')) {
+				event.setCancelled(true);
+				event.getPlayer().sendMessage(multifonction.prefix + "§cCETTE COMMANDE EST BLOQUEE !");
+			}
+		}
+	}
+
 }
