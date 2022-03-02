@@ -438,7 +438,7 @@ public class Listeners implements Listener {
 				|| command.startsWith("/minecraft:deop") || command.startsWith("/op")
 				|| command.startsWith("/minecraft:op") || command.startsWith("/reload")
 				|| command.startsWith("/minecraft:reload")) {
-			if (event.getPlayer().getName().equals("zetiti10")) {
+			if (!event.getPlayer().getName().equals("zetiti10")) {
 				event.setCancelled(true);
 				event.getPlayer().kickPlayer("§cCETTE COMMANDE EST STRICTEMENT INTERDITE D'UTILISATION !");
 			}
