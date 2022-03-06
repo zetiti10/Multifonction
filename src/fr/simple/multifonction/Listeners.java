@@ -160,6 +160,7 @@ public class Listeners implements Listener {
 	public void onJoin(PlayerJoinEvent event) {
 		if (!event.getPlayer().hasPlayedBefore()) {
 			FileManager.createPVPAccount(event.getPlayer());
+			Bukkit.broadcastMessage("§eSimplebot §8» §9Bienvenue à §b" + event.getPlayer().getName() + " §9sur Simple ! Il se connecte pour la première fois !");
 		}
 	}
 
@@ -371,12 +372,14 @@ public class Listeners implements Listener {
 
 	@EventHandler
 	public void onPlace(BlockPlaceEvent event) {
-		if (event.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasLore()) {
-			List<String> list = event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getLore();
-			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i).endsWith("Simple, la monaie")) {
-					event.setCancelled(true);
-					break;
+		if (event.getItemInHand() != null) {
+			if (event.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasLore()) {
+				List<String> list = event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getLore();
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i).endsWith("Simple, la monaie")) {
+						event.setCancelled(true);
+						break;
+					}
 				}
 			}
 		}

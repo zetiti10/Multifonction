@@ -41,10 +41,15 @@ public class FileManager {
 	}
 	
 	public static boolean isPVPEnabled(Player player) {
+		try {
 		final File file = new File("plugins/Multifonction", "/pvp.yml");
 		final YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
 		final ConfigurationSection configurationSection = configuration.getConfigurationSection("players." + player.getUniqueId().toString());
 		return configurationSection.getBoolean("ispvp");
+		} catch(NullPointerException e) {
+			Bukkit.getConsoleSender().sendMessage("Une erreur est survenue lors de la récupération du boolean ispvp pour " + player.getName() + " (UUID " + player.getUniqueId() + ") !");
+			return false;
+		}
 	}
 	
 	public static void setPVPEnabled(Player player, boolean isEnabled) {

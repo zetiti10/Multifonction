@@ -19,10 +19,6 @@ commands:
     description: Active / desactive le PVP.
     permission: multifonction.player
     usage: "Utilisation : /pvp."
-  cc:
-    description: Scènes de l'ouverture.
-    permission: multifonction.ouverture
-    usage: "Utilisation : /cc."
   mychunk:
     description: Obtenir les deux coins du chunk dans lequel on est.
     permission: multifonction.player
@@ -57,9 +53,6 @@ commands:
 permissions:
   multifonction.moderateur:
     description: Permission pour effectuer des commandes de modération.
-    default: op
-  multifonction.ouverture:
-    description: Permission pour exécuter les commandes de l'ouverture.
     default: op
   multifonction.player:
     description: Permissions des joueurs.

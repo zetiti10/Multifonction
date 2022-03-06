@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import fr.simple.multifonction.basicCommands.Cc;
 import fr.simple.multifonction.basicCommands.Freeze;
 import fr.simple.multifonction.basicCommands.Help;
 import fr.simple.multifonction.basicCommands.HelpOp;
@@ -33,7 +32,6 @@ public class Multifonction extends JavaPlugin {
 		}
 		
 		getCommand("afreeze").setExecutor(new Freeze(this));
-		getCommand("cc").setExecutor(new Cc(this));
 		getCommand("mychunk").setExecutor(new MyChunk(this));
 		getCommand("myloc").setExecutor(new MyPos(this));
 		getCommand("liens").setExecutor(new Liens());
