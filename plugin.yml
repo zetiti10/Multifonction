@@ -1,8 +1,8 @@
 main: fr.simple.multifonction.Multifonction
 name: Multifonction
-version: 1.0
+version: 1.0.1
 description: Simple, le plugin multifonction est un plugin qui ajoute diverses commande utiles au serveur.
-api-version: 1.17
+api-version: 1.18
 authors: [zetiti10, xzo41]
 website: https://simple.zapto.org/
 prefix: Multifonction
